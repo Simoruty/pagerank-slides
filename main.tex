@@ -77,51 +77,58 @@ Corso di Laurea in Informatica Magistrale
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Obiettivi}
+\section{PAGERANK}
 \begin{frame}
-\frametitle{Obiettivi}
-
+\frametitle{Definizione}
+In 1998 (the same year that HITS was born), Google founders Larry Page and Sergey Brin formulated
+their PageRank concept and made it the basis for their search engine [15]. As stated on the Google web
+site
+By avoiding the inherent weaknesses of HITS, PageRank has been responsible for elevating Google to the
+position of the world's preeminent search engine.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Content-based Recommender System}
-Il sistema stabilisce a priori la distanza trai film al fine di raccomandare i più simili alle preferenze dell'utente
+	\frametitle{Definizione}
+	\begin{itemize}
+		\item Formulato nel 1998 da Larry Page e Sergey Brin
+		\item Algoritmo di ricerca di Google : " The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
+		\item Supera gli svantaggi di HITS
+	\end{itemize}
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Idea di base}
+	I voti (link) da siti importanti dovrebbero avere un peso maggiore dei voti (link) da siti meno importanti, e l'importanza di un voto (link) da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\frametitle{Definition}
 \begin{figure}
-\includegraphics[width=.8\textwidth]{figure/cbrs.png}
+	\includegraphics[width=.3\textwidth]{figure/graph.png}
 \end{figure}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Linked Open Data Cloud}
-
-%\includegraphics[width=.95\textwidth]{figure/LoDLogo.png}
-
-Collezione (\textbf{Cloud}) di dataset:
-\begin{itemize}
-\item descritti attraverso RDF
-\item fortemente interconnessi fra loro (\textbf{Linked})
-\item fruibili liberamente e gratuitamente (\textbf{Open})
-\end{itemize}
+	\frametitle{Formalis}
+	\begin{itemize}
+		\item Indicata con $P$ una generica pagina
+		\item $B_P$ = \{ insieme delle pagine che puntano a P \}
+		\item si definisce il punteggio $r(P)$ di $P$: $$\sum_{Q \in B_P}\frac{r(Q)}{|Q|}$$ dove \\ $B_P=\{$ insieme di tutte le pagine puntanti a $P\}$ \\ $|Q|$ = numero degli outlink di $Q$
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Resource Description Framework}
-Strumento base proposto da \emph{W3C} per la codifica, lo scambio e il riutilizzo di metadati strutturati.
-
-L'RDF Data Model si basa su tre principi chiave:
-\begin{enumerate}
-\item qualunque cosa può essere identificata da un URI
-\item utilizzare il linguaggio meno espressivo per definire qualunque cosa
-\item qualunque cosa può dire qualunque cosa su qualunque cosa
-\end{enumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,24 +151,6 @@ L'affermazione può essere suddivisa come: \\~\\
 \section{Progetto}
 
 \subsection{Sorgente dati}
-
-\begin{frame}
-\frametitle{DBPedia}
-\begin{columns}
-
-\begin{column}{0.4\textwidth}
-\vspace{1cm}
-\centering\includegraphics[width=.8\textwidth]{figure/dbpedialogo}
-\begin{itemize}
-\item Centro della Linked Open Data Cloud
-\item Dump di Wikipedia trasformato in RDF
-\end{itemize}
-\end{column}
-\begin{column}{0.6\textwidth}
-\includegraphics[width=1\textwidth]{figure/AboutDBPedia}
-\end{column}
-\end{columns}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
