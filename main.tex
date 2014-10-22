@@ -88,7 +88,7 @@ position of the world's preeminent search engine.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{Funzionamento}
 \begin{frame}
 	\frametitle{Formalismo}
 	\begin{itemize}
@@ -202,17 +202,34 @@ position of the world's preeminent search engine.
 		\item Stocastica
 		\begin{itemize}
 			\item Sostituire ad ogni riga nulla il vettore $\frac{\mathbb{1}^\intercal}{n}$
-			\item La nuova matrice stocastica si indica con $\bar{\textbf{P}}$
+			\item La nuova matrice stocastica si indica con $\bar{\textbf{P}}$\\~\\
 		\end{itemize}
+		
 		\item Irriducibile
+				\begin{itemize}
+					\item Aggiungere una matrice di perturbazione $\textbf{E} = \frac{\mathbb{11}^\intercal}{n}$
+					\item La nuova matrice sarà uguale a  $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\textbf{E} ~~~~~~~~ \alpha \in [0,1]$$
+				\end{itemize}
 	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\begin{itemize}
+		\item La matrice di Google attualmente utilizzata è ottenuta
+		considerando la matrice di perturbazione  $\textbf{E} = \mathbb{1v}^\intercal$ dove $v^\intercal$ è un vettore di personalizzazione dell'utente $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\mathbb{1v}^\intercal ~~~~~~~~ \alpha \in [0,1]$$
+	\end{itemize}
+\end{frame}
 
-\section{Funzionamento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementazione}
+\begin{frame}
+	
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Esempio}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
