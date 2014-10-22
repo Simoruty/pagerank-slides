@@ -3,11 +3,12 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{transparent}
+\usepackage{bbold}
 \usepackage[italian]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{listings}
 \usepackage{tikz}
-\usepackage{amsfonts}
+\usepackage{amsmath,amsfonts,amssymb}
 \usepackage{pgfplots}
 \usepackage{scalefnt}
 \usepackage{color}
@@ -86,16 +87,6 @@ position of the world's preeminent search engine.
 	I voti (link) da siti importanti dovrebbero avere un peso maggiore dei voti (link) da siti meno importanti, e l'importanza di un voto (link) da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
-\frametitle{Definition}
-\begin{figure}
-	\includegraphics[width=.3\textwidth]{figure/graph.png}
-\end{figure}
-\end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
@@ -121,44 +112,104 @@ position of the world's preeminent search engine.
 
 \begin{frame}
 	\begin{itemize}
-		\item Ponendo: $\pi_j^T = (r_j(P_1),r_j(P_2),\dots,r_j(P_n))$
-		\item $P$ Matrice di Google per righe se:
+		\item Ponendo: $\pi_j^\intercal = (r_j(P_1),r_j(P_2),\dots,r_j(P_n))$\\
+		\item \textbf{P} Matrice di Google per righe se:
 		\begin{itemize}
 			\item $p_{ij}= \frac{1}{P_i}$ se $P_i$ si connette con la pagina $P_j$
 			\item $p_{ij}=0$ altrimenti
 		\end{itemize}
-		\item La precedente iterazione si può riscrivere come: $$ \pi_j^T = \pi_{j-1}^T P$$
+		\item La precedente iterazione si può riscrivere come: $$ \pi_j^\intercal = \pi_{j-1}^\intercal P$$\\
+		\item metodo delle potenze
 	\end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Esempio di graph web}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\includegraphics[width=.9\textwidth]{figure/graph.png}
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\vspace{1cm}
+			$\textbf{P} = \begin{bmatrix}
+			0           & \frac{1}{2} & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
+			\frac{1}{2} & 0           & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
+			0           & \frac{1}{2} & 0          & \frac{1}{2}& 0          & 0           \\[0.3em]
+			0           & 0           & 0          & 0          & \frac{1}{2}& \frac{1}{2} \\[0.3em]
+			0           & 0           & \frac{1}{2}& \frac{1}{2}& 0          & 0           \\[0.3em]
+			0           & 0           & 0          & 0          & 0          & 1           \\[0.3em]
+			\end{bmatrix}$
+		\end{column}
+	\end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 	\begin{itemize}
-		\item Se il limite esiste, il vettore PageRank è definito $$ \pi^T = \limsup\pi_j^T$$
+		\item Se il limite esiste, il vettore PageRank è definito $$ \pi^\intercal = \lim_{j\to\infty}\pi_j^\intercal$$
 		\item la \emph{i}-sima componente del vettore PageRank è il punteggio(pagerank) della pagina $P_i$
 		\item Per assicurare la convergenza del processo iterativo la matrice \emph{P} deve essere modificata
 	\end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\begin{itemize}
+		\item La matrice di Google per righe \textbf{P} è 
+		\begin{itemize}
+			\item non-negativa
+			\item somma degli elementi sulle righe pari a zero\footnote{nodi \emph{dangling}} o uno
+		\end{itemize}
+		\item Se la matrice \textbf{P} ha tutte le righe con somma pari a uno allora si parla di matrice stocastica:
+		\begin{itemize}
+			\item autovalore dominante uguale a 1
+			\item iterazione PageRank converge all'autovettore sinistro normalizzato $\pi^\intercal=\pi^\intercal \textbf{P}$ t.c. $\pi^\intercal \mathbb{1} = 1$
+		\end{itemize}
+	\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-\frametitle{Esempio - Resource Description Framework}
-Considerando la frase:\\~\\
-\begin{center} \emph{Tarantino is the director of the Django Unchained.} \\~\\
-\end{center}
-L'affermazione può essere suddivisa come: \\~\\
-\begin{tabular}{ l | l }
- Soggetto (Risorsa) & Django Unchained \\
- Predicato (Proprietà) & director \\
- Oggetto (Risorsa) & Tarantino \\
-\end{tabular}
+	\frametitle{Esempio nodo dangling}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\includegraphics[width=.8\textwidth]{figure/graphDangling.png}
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\vspace{1cm}
+			$\textbf{P} = \begin{bmatrix}
+			0           & \frac{1}{2} & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
+			\frac{1}{2} & 0           & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
+			0           & \frac{1}{2} & 0          & \frac{1}{2}& 0          & 0           \\[0.3em]
+			0           & 0           & 0          & 0          & \frac{1}{2}& \frac{1}{2} \\[0.3em]
+			0           & 0           & \frac{1}{2}& \frac{1}{2}& 0          & 0           \\[0.3em]
+			\textcolor{red}{0}&\textcolor{red}{0}&\textcolor{red}{0}&\textcolor{red}{0}&\textcolor{red}{0}& \textcolor{red}{0}\\[0.3em]
+			\end{bmatrix}$
+		\end{column}
+	\end{columns}
+	Il nodo 6 è un nodo dangling in quando non ha outlink
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Trasformazione Matrice di Google per righe}
+	\begin{itemize}
+		\item Stocastica
+		\begin{itemize}
+			\item Sostituire ad ogni riga nulla il vettore $\frac{\mathbb{1}^\intercal}{n}$
+			\item La nuova matrice stocastica si indica con $\bar{\textbf{P}}$
+		\end{itemize}
+		\item Irriducibile
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Funzionamento}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementazione}
