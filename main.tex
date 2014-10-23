@@ -163,6 +163,7 @@ position of the world's preeminent search engine.
 		\end{column}
 		\begin{column}{0.6\textwidth}
 			\vspace{1cm}
+			Matrice Google per righe \textbf{P}
 			$\textbf{P} = \begin{bmatrix}
 			0           & \frac{1}{2} & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
 			\frac{1}{2} & 0           & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
@@ -302,7 +303,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \section{Esempio}
 \begin{frame}
 	\frametitle{Esempio \dots}
-	Consideriamo l'insieme di rilevanza composta da sei pagine web aventi la seguente struttura ad hyperlink
+	Consideriamo l'insieme di rilevanza composto da sei pagine web aventi la seguente struttura ad hyperlink
 	\\~\\
 	\begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
@@ -337,7 +338,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio \dots}
-	La matrice di Google per riga corrispondente sarà
+	La matrice di Google per righe corrispondente al grafo sarà la seguente
 	\\~\\
 	\begin{center}
 		$\textbf{P} = \begin{bmatrix}
@@ -350,13 +351,14 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 		\end{bmatrix}$
 	\end{center}
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio \dots}
-	La matrice stocastica di Google per riga corrispondente sarà
-	\\~\\
+	Considerato che il nodo 2 è un nodo dangling allora sarà necessario trasformarla in matrice stocastica
+	\\~
 	\begin{center}
-	$\textbf{P} = \begin{bmatrix}
+	$\bar{\textbf{P}} = \begin{bmatrix}
 	0           & \frac{1}{2} & \frac{1}{2} & 0          & 0          & 0           \\[0.3em]
 	\textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}}& \textcolor{red}{\frac{1}{6}}& \textcolor{red}{\frac{1}{6}} \\[0.3em]
 	\frac{1}{3} & \frac{1}{3} & 0           & 0          & \frac{1}{3}& 0           \\[0.3em]
@@ -369,10 +371,10 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio\dots}
-	La matrice stocastica di Google per riga corrispondente sarà
+	La matrice stocastica ottenuta è una matrice riducibile
 	\\~\\
 	\begin{center}
-	$\textbf{P} = \begin{bmatrix}
+	$\bar{\textbf{P}} = \begin{bmatrix}
 	0           & \frac{1}{2} & \frac{1}{2} & 0          & 0          & 0           \\[0.3em]
 	\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6}& \frac{1}{6}& \frac{1}{6} \\[0.3em]
 	\frac{1}{3} & \frac{1}{3} & 0           & 0          & \frac{1}{3}& 0           \\[0.3em]
@@ -384,11 +386,11 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{\dots Esempio}
-	Per ottenere una matrice irriducibile scegliamo il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
+	\frametitle{\dots Esempio \dots}
+	Per ottenere una matrice irriducibile scegliamo arbitrariamente il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
 	$$\bar{\bar{\textbf{P}}} = 0.9*\bar{\textbf{P}} + \frac{0.1*\mathbb{11}^\intercal}{6}$$
 	\begin{center}
-		$\textbf{P} = \begin{bmatrix}
+		$\bar{\bar{\textbf{P}}} = \begin{bmatrix}
 		\frac{1}{60} & \frac{7}{15}  & \frac{7}{15} & \frac{1}{60} &\frac{1}{60} &\frac{1}{60} \\[0.3em]
 		\frac{1}{6}  & \frac{1}{6}   & \frac{1}{6}  & \frac{1}{6}  &\frac{1}{6}  &\frac{1}{6}  \\[0.3em]
 		\frac{19}{60}& \frac{19}{60} & \frac{1}{60} & \frac{1}{60} &\frac{19}{60}&\frac{1}{60} \\[0.3em]
@@ -399,8 +401,32 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+\begin{frame}
+	\frametitle{\dots Esempio}
+	\begin{itemize}
+		\item Il vettore di PageRank associato alla precedente matrice sarà $$\pi^\intercal=(0.3721~~0.05396~~0.0415~~0.375~~0.206~~0.286)$$
+		\item Vettore indipendente dalla query
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Esempio di raccomandazione}
+	\begin{itemize}
+		\item Data una query contenente i termini \emph{t1} e \emph{t2}
+		\item Calcoliamo l'insieme di rilevanza per la query $q=(t1,t2)$
+		\begin{itemize}
+			\item Insieme di rilevanza \{1~3~4~6\}
+		\end{itemize}
+		\item I PageRank dei 4 documenti possono essere confrontati per individuare quale dei documenti è il più rilevante
+		\begin{itemize}
+			\item ordinare le componenti del vettore pagerank associate ai documenti selezionati in modo decrescente
+			\item $\pi_4~\pi_6~\pi_3~\pi_1$
+			\item doc4 $\longrightarrow$ documento più rilevante
+			\item seguono doc6, doc3, doc1
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{}
 \begin{frame}
 %	basicstyle=\fontsize{8}{10}\selectfont \ttfamily,%
