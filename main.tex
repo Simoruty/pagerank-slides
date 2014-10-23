@@ -130,7 +130,36 @@ position of the world's preeminent search engine.
 	\frametitle{Esempio di graph web}
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
-			\includegraphics[width=.9\textwidth]{figure/graph.png}
+				\begin{center}
+					\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
+					thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries}]
+					
+					\node[main node] (1) {1};
+					\node (1a) [right of=1] {};
+					\node[main node] (2) [right of=1a] {2};
+					\node (3a) [below of=1] {};
+					\node[main node] (3) [below of=1a] {3};
+					\node (3b) [below of=2] {};
+					\node[main node] (5) [below of=3b] {5};
+					\node (5a) [below of=3] {};
+					\node[main node] (4) [below of=3a] {4};
+					\node[main node] (6) [below of=5a] {6};
+					
+					\path[every node/.style={font=\sffamily\small}]
+					(2) edge [bend right] node [right] {} (1)
+					(1) edge node [right] {} (2)
+					(1) edge node [right] {} (3)
+					(3) edge node [right] {} (4)
+					(5) edge node [right] {} (3)
+					(3) edge [bend right] node [right] {} (2)
+					(2) edge node [right] {} (3)
+					(5) edge node [right] {} (4)
+					(4) edge [bend right] node [right] {} (5)
+					(4) edge [bend right] node [right] {} (6)
+					(6) edge [bend right] node [right] {} (5)
+					;
+					\end{tikzpicture}
+				\end{center}
 		\end{column}
 		\begin{column}{0.6\textwidth}
 			\vspace{1cm}
@@ -179,7 +208,33 @@ position of the world's preeminent search engine.
 	\frametitle{Esempio nodo dangling}
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
-			\includegraphics[width=.8\textwidth]{figure/graphDangling.png}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
+thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries}]
+
+\node[main node] (1) {1};
+\node (1a) [right of=1] {};
+\node[main node] (2) [right of=1a] {2};
+\node (3a) [below of=1] {};
+\node[main node] (3) [below of=1a] {3};
+\node (3b) [below of=2] {};
+\node[main node] (5) [below of=3b] {5};
+\node (5a) [below of=3] {};
+\node[main node] (4) [below of=3a] {4};
+\node[main node,fill=red!60] (6) [below of=5a] {6};
+
+\path[every node/.style={font=\sffamily\small}]
+(2) edge [bend right] node [right] {} (1)
+(1) edge node [right] {} (2)
+(1) edge node [right] {} (3)
+(3) edge node [right] {} (4)
+(5) edge node [right] {} (3)
+(3) edge [bend right] node [right] {} (2)
+(2) edge node [right] {} (3)
+(5) edge node [right] {} (4)
+(4) edge [bend right] node [right] {} (5)
+(4) edge [bend right] node [right] {} (6)
+;
+\end{tikzpicture}
 		\end{column}
 		\begin{column}{0.6\textwidth}
 			\vspace{1cm}
@@ -193,6 +248,8 @@ position of the world's preeminent search engine.
 			\end{bmatrix}$
 		\end{column}
 	\end{columns}
+	\textcolor{white}{s}
+	\\
 	Il nodo 6 è un nodo dangling in quando non ha outlink
 \end{frame}
 
@@ -246,6 +303,8 @@ position of the world's preeminent search engine.
 \begin{frame}
 	\frametitle{Esempio \dots}
 	Consideriamo l'insieme di rilevanza composta da sei pagine web aventi la seguente struttura ad hyperlink
+	\\~\\
+	\begin{center}
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
 	thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries}]
 	
@@ -273,22 +332,71 @@ position of the world's preeminent search engine.
 	(6) edge [bend right] node [right] {} (4)
 ;
 	\end{tikzpicture}
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio \dots}
+	La matrice di Google per riga corrispondente sarà
+	\\~\\
+	\begin{center}
+		$\textbf{P} = \begin{bmatrix}
+		0           & \frac{1}{2} & \frac{1}{2}& 0          & 0          & 0           \\[0.3em]
+		0           & 0           & 0          & 0          & 0          & 0           \\[0.3em]
+		\frac{1}{3} & \frac{1}{3} & 0          & 0          & \frac{1}{3}& 0           \\[0.3em]
+		0           & 0           & 0           & 0          & \frac{1}{2}& \frac{1}{2} \\[0.3em]
+		0           & 0           & 0           & \frac{1}{2}& 0          & \frac{1}{2} \\[0.3em]
+		0           & 0           & 0           & 1          & 0          & 0           \\[0.3em]
+		\end{bmatrix}$
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots Esempio \dots}
+	La matrice stocastica di Google per riga corrispondente sarà
+	\\~\\
+	\begin{center}
+	$\textbf{P} = \begin{bmatrix}
+	0           & \frac{1}{2} & \frac{1}{2} & 0          & 0          & 0           \\[0.3em]
+	\textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}} & \textcolor{red}{\frac{1}{6}}& \textcolor{red}{\frac{1}{6}}& \textcolor{red}{\frac{1}{6}} \\[0.3em]
+	\frac{1}{3} & \frac{1}{3} & 0           & 0          & \frac{1}{3}& 0           \\[0.3em]
+	0           & 0           & 0           & 0          & \frac{1}{2}& \frac{1}{2} \\[0.3em]
+	0           & 0           & 0           & \frac{1}{2}& 0          & \frac{1}{2} \\[0.3em]
+	0           & 0           & 0           & 1          & 0          & 0           \\[0.3em]
+	\end{bmatrix}$
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio\dots}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-	\frametitle{\dots Esempio\dots}
+	La matrice stocastica di Google per riga corrispondente sarà
+	\\~\\
+	\begin{center}
+	$\textbf{P} = \begin{bmatrix}
+	0           & \frac{1}{2} & \frac{1}{2} & 0          & 0          & 0           \\[0.3em]
+	\frac{1}{6} & \frac{1}{6} & \frac{1}{6} & \frac{1}{6}& \frac{1}{6}& \frac{1}{6} \\[0.3em]
+	\frac{1}{3} & \frac{1}{3} & 0           & 0          & \frac{1}{3}& 0           \\[0.3em]
+	\textcolor{red}{0}& \textcolor{red}{0} &\textcolor{red}{0}& 0          & \frac{1}{2}& \frac{1}{2} \\[0.3em]
+	\textcolor{red}{0}& \textcolor{red}{0} &\textcolor{red}{0}& \frac{1}{2}& 0          & \frac{1}{2} \\[0.3em]
+	\textcolor{red}{0}& \textcolor{red}{0} &\textcolor{red}{0}& 1          & 0          & 0           \\[0.3em]
+	\end{bmatrix}$
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio}
+	Per ottenere una matrice irriducibile scegliamo il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
+	$$\bar{\bar{\textbf{P}}} = 0.9*\bar{\textbf{P}} + \frac{0.1*\mathbb{11}^\intercal}{6}$$
+	\begin{center}
+		$\textbf{P} = \begin{bmatrix}
+		\frac{1}{60} & \frac{7}{15}  & \frac{7}{15} & \frac{1}{60} &\frac{1}{60} &\frac{1}{60} \\[0.3em]
+		\frac{1}{6}  & \frac{1}{6}   & \frac{1}{6}  & \frac{1}{6}  &\frac{1}{6}  &\frac{1}{6}  \\[0.3em]
+		\frac{19}{60}& \frac{19}{60} & \frac{1}{60} & \frac{1}{60} &\frac{19}{60}&\frac{1}{60} \\[0.3em]
+		\frac{1}{60} & \frac{1}{60}  & \frac{1}{60} & \frac{1}{60} &\frac{7}{15} &\frac{7}{15} \\[0.3em]
+		\frac{1}{60} & \frac{1}{60}  & \frac{1}{60} & \frac{7}{15} &\frac{1}{60} &\frac{7}{15} \\[0.3em]
+		\frac{1}{60} & \frac{1}{60}  & \frac{1}{60} & \frac{11}{12}&\frac{1}{60} &\frac{1}{60} \\[0.3em]
+		\end{bmatrix}$
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
