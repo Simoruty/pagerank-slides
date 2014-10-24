@@ -61,6 +61,134 @@ Corso di Laurea in Informatica Magistrale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduzione}
+\subsection{Information Retrieval nel Web}
+\begin{frame}
+	\frametitle{Caratteristiche del Web}
+	\begin{itemize}
+		\item Struttura ad hyperlink
+		\item Frequenza elevata nell'aggiornamento e modifica dei documenti web
+		\item Quantità elevata di documenti da considerare
+		\item Mancanza di revisione nei documenti
+		\begin{itemize}
+			\item Ridondanza
+			\item Link di bassa qualità
+			\item Link obsoleti
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{IR nel Web \dots}
+	\begin{itemize}
+	\item Per garantire qualità ai documenti recuperati è necessario puntare sull'\emph{accuratezza} dei risultati incorporando costantemente gli aggiornamenti
+	\item Immunità ai sistemi che falsano l'importanza dei documenti
+	\item Personalizzazione dei risultati in base alla profilazione utente
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{\dots IR nel Web}
+	\begin{itemize}
+	\item La struttura a hyperlink fornisce informazioni extra per la costruzione di un metodo di Web-IR \\~\\
+	\item Tale struttura è utilizzata dai più meccanismi di retrieval
+	\begin{itemize}
+		\item HITS (Hypertext Inducer Topic Search, 1997)
+		\item PageRank (1998)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{La struttura ad Hyperlink del Web \dots}
+	\begin{itemize}
+		\item Ciascuna pagina/documento del Web è
+		rappresentato come un nodo di un grafico
+		molto grande
+		\item Gli archi diretti che connettono questi nodi rappresentano gli hyperlink tra i diversi documenti
+		\begin{itemize}
+			\item \textbf{inlink}: pagine che puntano verso uno specifico documento (link entranti)
+			\item \textbf{outlink}: pagine collegate ad uno specifico documento (link uscenti)
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots La struttura ad Hyperlink del Web}
+	Entrambi i sistemi HITS e PageRank sono basati sui concetti di authority e hub
+	\begin{itemize}
+		\item \textbf{Authority}: documento con numerosi inlink
+		\item \textbf{Hub}: documento con diversi outlink
+	\end{itemize}
+	Ad ogni pagina viene assegnato un punteggio hub e authority
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
+				thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries}]
+				
+				\node (1a) {};
+				\node (1b) [right of=1a] {};
+				\node (1c) [right of=1b] {};
+				\node (3a) [below of=1a] {};
+				\node[main node] (3) [below of=1b] {Auth};
+				\node (3b) [below of=1c] {};
+				\node (5) [below of=3b] {};
+				\node (5a) [below of=3] {};
+				\node (4) [below of=3a] {};
+				\node (6) [below of=5a] {};
+				
+				\path[every node/.style={font=\sffamily\small}]
+				(1a) edge node [right] {} (3)
+				(1c) edge node [right] {} (3)
+				(3b) edge node [right] {} (3)
+				(5) edge node [right] {} (3)
+				(4) edge node [right] {} (3)
+				(6) edge node [right] {} (3)
+				;
+				\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
+			thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries}]
+			
+			\node (1a) {};
+			\node (1b) [right of=1a] {};
+			\node (1c) [right of=1b] {};
+			\node (3a) [below of=1a] {};
+			\node[main node] (3) [below of=1b] {Hub};
+			\node (3b) [below of=1c] {};
+			\node (5) [below of=3b] {};
+			\node (5a) [below of=3] {};
+			\node (4) [below of=3a] {};
+			\node (6) [below of=5a] {};
+			
+			\path[every node/.style={font=\sffamily\small}]
+			(3) edge node [right] {} (1a)
+			(3) edge node [right] {} (1c)
+			(3) edge node [right] {} (3b)
+			(3) edge node [right] {} (5)
+			(3) edge node [right] {} (4)
+			(3) edge node [right] {} (6)
+			;
+			\end{tikzpicture}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{HITS algorithm}
+\begin{frame}
+	\frametitle{HITS}
+	
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Definizione}
 \begin{frame}
 \frametitle{Definizione}
 In 1998 (the same year that HITS was born), Google founders Larry Page and Sergey Brin formulated
@@ -71,7 +199,7 @@ position of the world's preeminent search engine.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\subsection{Definizione}
 \begin{frame}
 	\frametitle{Definizione}
 	\begin{itemize}
@@ -82,7 +210,7 @@ position of the world's preeminent search engine.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\subsection{Idea di base}
 \begin{frame}
 	\frametitle{Idea di base}
 	I voti (link) da siti importanti dovrebbero avere un peso maggiore dei voti (link) da siti meno importanti, e l'importanza di un voto (link) da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
@@ -370,7 +498,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{\dots Esempio\dots}
+	\frametitle{\dots Esempio \dots}
 	La matrice stocastica ottenuta è una matrice riducibile
 	\\~\\
 	\begin{center}
@@ -405,26 +533,41 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 	\frametitle{\dots Esempio}
 	\begin{itemize}
 		\item Il vettore di PageRank associato alla precedente matrice sarà $$\pi^\intercal=(0.3721~~0.05396~~0.0415~~0.375~~0.206~~0.286)$$
-		\item Vettore indipendente dalla query
+		\item PageRank indipendente dalla query
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Esempio di raccomandazione}
+	\frametitle{Esempio di raccomandazione\dots}
 	\begin{itemize}
-		\item Data una query contenente i termini \emph{t1} e \emph{t2}
-		\item Calcoliamo l'insieme di rilevanza per la query $q=(t1,t2)$
-		\begin{itemize}
-			\item Insieme di rilevanza \{1~3~4~6\}
-		\end{itemize}
-		\item I PageRank dei 4 documenti possono essere confrontati per individuare quale dei documenti è il più rilevante
-		\begin{itemize}
-			\item ordinare le componenti del vettore pagerank associate ai documenti selezionati in modo decrescente
-			\item $\pi_4~\pi_6~\pi_3~\pi_1$
-			\item doc4 $\longrightarrow$ documento più rilevante
-			\item seguono doc6, doc3, doc1
-		\end{itemize}
+		\item Data una query contenente i termini \emph{t1} e \emph{t2} \\~\\
+		\item Inverted term-document associato sarà
+		\begin{center}
+			\begin{tabular}{ l c l }
+				&&\\
+				t1 & $\longrightarrow$ & doc1, doc4, doc6 \\
+				t2 & $\longrightarrow$ & doc1, doc3 \\
+				\vdots & & \\
+			\end{tabular}
+		\end{center}
 	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots Esempio di raccomandazione}
+\begin{itemize}
+\item Calcoliamo l'insieme di rilevanza per la query $q=(t1,t2)$
+\begin{itemize}
+	\item Insieme di rilevanza \{1~3~4~6\} \\~\\
+\end{itemize}
+\item I PageRank dei 4 documenti possono essere confrontati per individuare quale dei documenti è il più rilevante
+\begin{itemize}
+	\item ordinare le componenti del vettore pagerank associate ai documenti selezionati in modo decrescente
+	$$\pi_4~~\pi_6~~\pi_3~~\pi_1$$
+	\item doc4 $\longrightarrow$ documento più rilevante
+	\item seguono doc6, doc3, doc1
+\end{itemize}
+\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{}
