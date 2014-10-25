@@ -59,9 +59,7 @@ Corso di Laurea in Informatica Magistrale
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Introduzione}
-\subsection{Information Retrieval nel Web}
+\section{Information Retrieval nel Web}
 \begin{frame}
 	\frametitle{Caratteristiche del Web}
 	\begin{itemize}
@@ -77,7 +75,6 @@ Corso di Laurea in Informatica Magistrale
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
 	\frametitle{IR nel Web \dots}
 	\begin{itemize}
@@ -86,9 +83,7 @@ Corso di Laurea in Informatica Magistrale
 	\item Personalizzazione dei risultati in base alla profilazione utente
 \end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
 	\frametitle{\dots IR nel Web}
 	\begin{itemize}
@@ -114,7 +109,6 @@ Corso di Laurea in Informatica Magistrale
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots La struttura ad Hyperlink del Web}
@@ -177,10 +171,9 @@ Corso di Laurea in Informatica Magistrale
 		\end{column}
 	\end{columns}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{HITS}
+\section{HITS}
+\subsection{Caratteristiche}
 \begin{frame}
 	\frametitle{Definizioni e formalismi \dots}
 	\emph{Buoni hubs puntano a buone authority e buone authority sono puntati da buoni hubs}\\
@@ -194,7 +187,6 @@ Corso di Laurea in Informatica Magistrale
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots definizioni e formalismi \dots}
@@ -218,8 +210,8 @@ Corso di Laurea in Informatica Magistrale
 		\item Le righe di L sono i documenti che puntano la generica pagina (\textbf{inlink})
 	\end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Implementazione}
 \begin{frame}
 	\frametitle{Implementazione}
 	Data una query $q$ :
@@ -229,8 +221,8 @@ Corso di Laurea in Informatica Magistrale
 		\item Presentazione del rank dei documenti authority e hub recuperati
 	\end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vantaggi e svantaggi}
 \begin{frame}
 	\frametitle{Vantaggi e Svantaggi}
 	Vantaggi
@@ -247,8 +239,7 @@ Corso di Laurea in Informatica Magistrale
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{PAGERANK}
-
+\section{PageRank}
 \subsection{Definizione}
 \begin{frame}
 	\frametitle{Definizione}
@@ -258,7 +249,6 @@ Corso di Laurea in Informatica Magistrale
 		\item Supera gli svantaggi di HITS
 	\end{itemize}
 \end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Idea di base}
 \begin{frame}
@@ -280,16 +270,16 @@ Corso di Laurea in Informatica Magistrale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
+	\frametitle{Calcolo punteggio PageRank \dots}
 	\begin{itemize}
 		\item Se abbiamo \emph{n} pagine $P_1,P_2,\dots,P_n$ ed assegniamo a ciascuna pagina un arbitrario punteggio iniziale $r_0(P_i)=\frac{1}{n}$
 		\item Il punteggio $r(P)$ può essere calcolato mediante la seguente iterazione: $$r_j(P_i)= \sum_{Q \in B_{P_i}}\frac{r_{j-1}(Q)}{|Q|} ~~~~~~~~ j=1,2,3,\dots$$
 	\end{itemize}
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
+	\frametitle{\dots calcolo punteggio PageRank}
 	\begin{itemize}
 		\item Ponendo: $\pi_j^\intercal = (r_j(P_1),r_j(P_2),\dots,r_j(P_n))$\\
 		\item \textbf{P} Matrice di Google per righe se:
@@ -459,7 +449,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementazione}
+\subsection{Implementazione}
 \begin{frame}
 	\frametitle{Implementazione di PageRank}
 	Data una query \emph{q}:
@@ -478,7 +468,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 	\end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Esempio}
+\subsection{Esempio}
 \begin{frame}
 	\frametitle{Esempio \dots}
 	Consideriamo l'insieme di rilevanza composto da sei pagine web aventi la seguente struttura ad hyperlink
@@ -588,7 +578,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Esempio di raccomandazione\dots}
+	\frametitle{Esempio di raccomandazione \dots}
 	\begin{itemize}
 		\item Data una query contenente i termini \emph{t1} e \emph{t2} \\~\\
 		\item Inverted term-document associato sarà
