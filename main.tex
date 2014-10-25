@@ -117,7 +117,7 @@ Corso di Laurea in Informatica Magistrale
 		\item \textbf{Authority}: documento con numerosi inlink
 		\item \textbf{Hub}: documento con diversi outlink
 	\end{itemize}
-	Ad ogni pagina viene assegnato un punteggio hub e authority
+	Ad ogni pagina viene assegnato un punteggio authority e hub
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.2cm,
@@ -175,8 +175,8 @@ Corso di Laurea in Informatica Magistrale
 \section{HITS}
 \subsection{Caratteristiche}
 \begin{frame}
-	\frametitle{Definizioni e formalismi \dots}
-	\emph{Buoni hubs puntano a buone authority e buone authority sono puntati da buoni hubs}\\
+	\frametitle{HITS \dots}
+	\emph{``Buoni hubs puntano a buone authority e buone authority sono puntati da buoni hubs''}\\~\\
 	Indicato con $E$ l'insieme di tutte le connessioni del grafo associato al web
 	\begin{itemize}
 		\item $e_{ij}$ rappresenta quindi le connessioni tra il nodo $i$ ed il nodo $j$
@@ -189,7 +189,7 @@ Corso di Laurea in Informatica Magistrale
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{\dots definizioni e formalismi \dots}
+	\frametitle{\dots HITS \dots}
 	HITS si basa sul raffinamento successivo dei punteggi $x_i$ e $y_i$
 	\begin{itemize}
 		\item L'importanza di una pagina come authority dipende dall'importanza dei suoi inlink $$x_i^{(k)}=\sum_{j:e_{ji}\in E}y_j^{(k-1)}$$
@@ -198,7 +198,7 @@ Corso di Laurea in Informatica Magistrale
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{\dots definizioni e formalismi}
+	\frametitle{\dots HITS}
 	Le precedenti equazioni si possono riscrivere in forma matriciale introducendo la \emph{matrice di adiacenza} $L=[l_{ij}]$ del grafo del web dove
 	\[ l_{ij} = \left\{ 
 	\begin{array}{l l}
@@ -213,24 +213,24 @@ Corso di Laurea in Informatica Magistrale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementazione}
 \begin{frame}
-	\frametitle{Implementazione}
+	\frametitle{HITS - Implementazione}
 	Data una query $q$ :
 	\begin{itemize}
 		\item Costruire il grafo di vicinanza (neighborhood graph) $N$ relativo alla query $q$
-		\item Calcolo dei punteggi di authority e hub del grafo $N$ attraverso l'ausilio della matrice di adiacenza
-		\item Presentazione del rank dei documenti authority e hub recuperati
+		\item Calcolare i punteggi di authority e hub del grafo $N$ attraverso l'ausilio della matrice di adiacenza
+		\item Presentare il rank dei documenti authority e hub recuperati
 	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Vantaggi e svantaggi}
 \begin{frame}
-	\frametitle{Vantaggi e Svantaggi}
-	Vantaggi
+	\frametitle{HITS - Vantaggi e Svantaggi}
+	\textbf{Vantaggi}
 	\begin{itemize}
 		\item doppio ranking (authority e hub)
-		\item uso di matrici di dimensioni ridotte \\
+		\item uso di matrici di dimensioni ridotte \\~\\
 	\end{itemize}
-	Svantaggi
+	\textbf{Svantaggi}
 	\begin{itemize}
 		\item Dipendenza dalla query per la costruzione della neighborhood graph
 		\item Punteggi di hub ed authority alterabili inserendo inlink e outlink al documento stesso
@@ -242,7 +242,7 @@ Corso di Laurea in Informatica Magistrale
 \section{PageRank}
 \subsection{Definizione}
 \begin{frame}
-	\frametitle{Definizione}
+	\frametitle{PageRank - Definizione}
 	\begin{itemize}
 		\item Formulato nel 1998 da Larry Page e Sergey Brin
 		\item Algoritmo di ricerca di Google : "The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
@@ -252,14 +252,14 @@ Corso di Laurea in Informatica Magistrale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Idea di base}
 \begin{frame}
-	\frametitle{Idea di base}
+	\frametitle{PageRank - Idea di base}
 	I voti (link) da siti importanti dovrebbero avere un peso maggiore dei voti (link) da siti meno importanti, e l'importanza di un voto (link) da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Funzionamento}
 \begin{frame}
-	\frametitle{Formalismo}
+	\frametitle{PageRank - Formalismo}
 	\begin{itemize}
 		\item Indicata con $P$ una generica pagina
 		\item $B_P$ = \{ insieme delle pagine che puntano a P \}
