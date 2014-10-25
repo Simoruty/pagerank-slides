@@ -14,7 +14,7 @@
 \usepackage{scalefnt}
 \usepackage{color}
 \usepackage{xcolor}
-\title[PAGERANK]{PageRank}
+\title[PageRank]{PageRank}
 \institute{
 \begin{small}
 Corso di Laurea in Informatica Magistrale
@@ -179,7 +179,7 @@ Corso di Laurea in Informatica Magistrale
 	\emph{``Buoni hubs puntano a buone authority e buone authority sono puntati da buoni hubs''}\\~\\
 	Indicato con $E$ l'insieme di tutte le connessioni del grafo associato al web
 	\begin{itemize}
-		\item $e_{ij}$ rappresenta quindi le connessioni tra il nodo $i$ ed il nodo $j$
+		\item $e_{ij}$ rappresenta la connessione tra il nodo $i$ ed il nodo $j$
 		\item Considerata la pagina $i$-sima avremo
 		\begin{itemize}
 			\item $x_i$ il suo punteggio di authority
@@ -253,7 +253,10 @@ Corso di Laurea in Informatica Magistrale
 \subsection{Idea di base}
 \begin{frame}
 	\frametitle{PageRank - Idea di base}
-	I voti (link) da siti importanti dovrebbero avere un peso maggiore dei voti (link) da siti meno importanti, e l'importanza di un voto (link) da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
+	\begin{itemize}
+		\item Pesatura dei link in base all'importanza del sito da cui proviene\\~
+		\item L'importanza di un link da una qualunque sorgente dovrebbe essere attenuato dal numero dei siti che la sorgente vota
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,9 +264,7 @@ Corso di Laurea in Informatica Magistrale
 \begin{frame}
 	\frametitle{PageRank - Formalismo}
 	\begin{itemize}
-		\item Indicata con $P$ una generica pagina
-		\item $B_P$ = \{ insieme delle pagine che puntano a P \}
-		\item si definisce il punteggio $r(P)$ di $P$: $$\sum_{Q \in B_P}\frac{r(Q)}{|Q|}$$ dove \\ $B_P=\{$ insieme di tutte le pagine puntanti a $P\}$ \\ $|Q|$ = numero degli outlink di $Q$
+		\item Indicata con $P$ una generica pagina, il suo punteggio sarà $$r(P)=\sum_{Q \in B_P}\frac{r(Q)}{|Q|}$$ dove \\ $B_P=\{$ insieme di tutte le pagine puntanti a $P\}$ \\ $|Q|$ = numero degli outlink di $Q$
 	\end{itemize}
 \end{frame}
 
@@ -279,16 +280,28 @@ Corso di Laurea in Informatica Magistrale
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{\dots calcolo punteggio PageRank}
+	\frametitle{\dots calcolo punteggio PageRank \dots}
 	\begin{itemize}
 		\item Ponendo: $\pi_j^\intercal = (r_j(P_1),r_j(P_2),\dots,r_j(P_n))$\\
-		\item \textbf{P} Matrice di Google per righe se:
-		\begin{itemize}
-			\item $p_{ij}= \frac{1}{P_i}$ se $P_i$ si connette con la pagina $P_j$
-			\item $p_{ij}=0$ altrimenti
-		\end{itemize}
-		\item La precedente iterazione si può riscrivere come: $$ \pi_j^\intercal = \pi_{j-1}^\intercal P$$\\
-		\item metodo delle potenze
+		\item Definiamo la matrice di Google per righe \textbf{P} tale che:
+		\[ p_{ij} = \left\{ 
+		\begin{array}{l l}
+		\frac{1}{P_i} & \quad \text{se $P_i$ si connette con la pagina $P_j$}\\
+		0 & \quad \text{altrimenti}
+		\end{array} \right.\]
+		\item La precedente iterazione si può riscrivere come: $$ \pi_j^\intercal = \pi_{j-1}^\intercal \textbf{P}$$\\
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+	\frametitle{\dots calcolo punteggio PageRank}
+	\begin{itemize}
+		\item Se il limite esiste, il vettore PageRank è definito $$ \pi^\intercal = \lim_{j\to\infty}\pi_j^\intercal$$
+		\item la \emph{i}-sima componente del vettore PageRank è il punteggio(pagerank) della pagina $P_i$
+		\item Per assicurare la convergenza del processo iterativo la matrice \emph{P} deve essere modificata
 	\end{itemize}
 \end{frame}
 
@@ -347,21 +360,12 @@ Corso di Laurea in Informatica Magistrale
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-	\begin{itemize}
-		\item Se il limite esiste, il vettore PageRank è definito $$ \pi^\intercal = \lim_{j\to\infty}\pi_j^\intercal$$
-		\item la \emph{i}-sima componente del vettore PageRank è il punteggio(pagerank) della pagina $P_i$
-		\item Per assicurare la convergenza del processo iterativo la matrice \emph{P} deve essere modificata
-	\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}
+	\frametitle{Matrice Google per righe}
 	\begin{itemize}
 		\item La matrice di Google per righe \textbf{P} è 
 		\begin{itemize}
 			\item non-negativa
-			\item somma degli elementi sulle righe pari a zero\footnote{nodi \emph{dangling}} o uno
+			\item somma degli elementi sulle righe pari a zero\footnote{nodi \emph{dangling}} o uno \\~\\
 		\end{itemize}
 		\item Se la matrice \textbf{P} ha tutte le righe con somma pari a uno allora si parla di matrice stocastica:
 		\begin{itemize}
@@ -424,28 +428,23 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Trasformazione Matrice di Google per righe}
-	\begin{itemize}
-		\item Stocastica
+	\frametitle{Trasformazione Matrice di Google per righe \dots}
+	\textbf{Stocastica}
 		\begin{itemize}
 			\item Sostituire ad ogni riga nulla il vettore $\frac{\mathbb{1}^\intercal}{n}$
 			\item La nuova matrice stocastica si indica con $\bar{\textbf{P}}$\\~\\
 		\end{itemize}
-		
-		\item Irriducibile
-				\begin{itemize}
-					\item Aggiungere una matrice di perturbazione $\textbf{E} = \frac{\mathbb{11}^\intercal}{n}$
-					\item La nuova matrice sarà uguale a  $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\textbf{E} ~~~~~~~~ \alpha \in [0,1]$$
-				\end{itemize}
-	\end{itemize}
+	\textbf{Irriducibile}
+		\begin{itemize}
+			\item Aggiungere una matrice di perturbazione $\textbf{E} = \frac{\mathbb{11}^\intercal}{n}$
+			\item La nuova matrice sarà uguale a  $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\textbf{E} ~~~~~~~~ \alpha \in [0,1]$$
+		\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\begin{itemize}
-		\item La matrice di Google attualmente utilizzata è ottenuta
-		considerando la matrice di perturbazione  $\textbf{E} = \mathbb{1v}^\intercal$ dove $v^\intercal$ è un vettore di personalizzazione dell'utente $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\mathbb{1v}^\intercal ~~~~~~~~ \alpha \in [0,1]$$
-	\end{itemize}
+	\frametitle{\dots Trasformazione Matrice di Google per righe}
+	La matrice di Google attualmente utilizzata è ottenuta considerando la matrice di perturbazione  $\textbf{E} = \mathbb{1v}^\intercal$ dove $v^\intercal$ è un vettore di personalizzazione dell'utente $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\mathbb{1v}^\intercal ~~~~~~~~ \alpha \in [0,1]$$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -555,7 +554,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio \dots}
-	Per ottenere una matrice irriducibile scegliamo arbitrariamente il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
+	Per ottenere una matrice irriducibile settiamo il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
 	$$\bar{\bar{\textbf{P}}} = 0.9*\bar{\textbf{P}} + \frac{0.1*\mathbb{11}^\intercal}{6}$$
 	\begin{center}
 		$\bar{\bar{\textbf{P}}} = \begin{bmatrix}
