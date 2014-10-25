@@ -180,31 +180,81 @@ Corso di Laurea in Informatica Magistrale
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{HITS algorithm}
+\subsection{HITS}
 \begin{frame}
-	\frametitle{HITS}
-	
+	\frametitle{Definizioni e formalismi \dots}
+	\emph{Buoni hubs puntano a buone authority e buone authority sono puntati da buoni hubs}\\
+	Indicato con $E$ l'insieme di tutte le connessioni del grafo associato al web
+	\begin{itemize}
+		\item $e_{ij}$ rappresenta quindi le connessioni tra il nodo $i$ ed il nodo $j$
+		\item Considerata la pagina $i$-sima avremo
+		\begin{itemize}
+			\item $x_i$ il suo punteggio di authority
+			\item $y_i$ il suo punteggio di hub
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Definizione}
 \begin{frame}
-\frametitle{Definizione}
-In 1998 (the same year that HITS was born), Google founders Larry Page and Sergey Brin formulated
-their PageRank concept and made it the basis for their search engine [15]. As stated on the Google web
-site
-By avoiding the inherent weaknesses of HITS, PageRank has been responsible for elevating Google to the
-position of the world's preeminent search engine.
+	\frametitle{\dots definizioni e formalismi \dots}
+	HITS si basa sul raffinamento successivo dei punteggi $x_i$ e $y_i$
+	\begin{itemize}
+		\item L'importanza di una pagina come authority dipende dall'importanza dei suoi inlink $$x_i^{(k)}=\sum_{j:e_{ji}\in E}y_j^{(k-1)}$$
+		\item L'importanza di una pagina come hub dipende dall'importanza dei suoi outlink $$y_i^{(k)}=\sum_{j:e_{ij}\in E}x_j^{(k)}$$
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots definizioni e formalismi}
+	Le precedenti equazioni si possono riscrivere in forma matriciale introducendo la \emph{matrice di adiacenza} $L=[l_{ij}]$ del grafo del web dove
+	\[ l_{ij} = \left\{ 
+	\begin{array}{l l}
+	1 & \quad \text{se esiste connessione tra i nodi $i$ e $j$}\\
+	0 & \quad \text{altrimenti}
+	\end{array} \right.\]
+	\begin{itemize}
+		\item Le colonne di L sono i documenti puntati dalla generica pagina (\textbf{outlink})
+		\item Le righe di L sono i documenti che puntano la generica pagina (\textbf{inlink})
+	\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Implementazione}
+	Data una query $q$ :
+	\begin{itemize}
+		\item Costruire il grafo di vicinanza (neighborhood graph) $N$ relativo alla query $q$
+		\item Calcolo dei punteggi di authority e hub del grafo $N$ attraverso l'ausilio della matrice di adiacenza
+		\item Presentazione del rank dei documenti authority e hub recuperati
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Vantaggi e Svantaggi}
+	Vantaggi
+	\begin{itemize}
+		\item doppio ranking (authority e hub)
+		\item uso di matrici di dimensioni ridotte \\
+	\end{itemize}
+	Svantaggi
+	\begin{itemize}
+		\item Dipendenza dalla query per la costruzione della neighborhood graph
+		\item Punteggi di hub ed authority alterabili inserendo inlink e outlink al documento stesso
+		\item Possibile indirizzamento a pagine off-topic
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{PAGERANK}
+
 \subsection{Definizione}
 \begin{frame}
 	\frametitle{Definizione}
 	\begin{itemize}
 		\item Formulato nel 1998 da Larry Page e Sergey Brin
-		\item Algoritmo di ricerca di Google : " The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
+		\item Algoritmo di ricerca di Google : "The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
 		\item Supera gli svantaggi di HITS
 	\end{itemize}
 \end{frame}
@@ -217,7 +267,7 @@ position of the world's preeminent search engine.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Funzionamento}
+\subsection{Funzionamento}
 \begin{frame}
 	\frametitle{Formalismo}
 	\begin{itemize}
