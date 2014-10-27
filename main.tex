@@ -245,7 +245,7 @@ Corso di Laurea in Informatica Magistrale
 	\frametitle{PageRank - Definizione}
 	\begin{itemize}
 		\item Formulato nel 1998 da Larry Page e Sergey Brin
-		\item Algoritmo di ricerca di Google : "The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
+		\item Algoritmo di ricerca di Google : ``The heart of our software is PageRank \texttrademark\dots it provides the basis for all of our web search tools.''
 		\item Supera gli svantaggi di HITS
 	\end{itemize}
 \end{frame}
@@ -437,16 +437,34 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 	\textbf{Irriducibile}
 		\begin{itemize}
 			\item Aggiungere una matrice di perturbazione $\textbf{E} = \frac{\mathbb{11}^\intercal}{n}$
-			\item La nuova matrice sarà uguale a  $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\textbf{E} ~~~~~~~~ \alpha \in [0,1]$$
+			\item La nuova matrice sarà uguale a  $$\bar{\bar{\textbf{P}}} = d\bar{\textbf{P}} + (1-d)\textbf{E} ~~~~~~~~ d \in [0,1]$$
 		\end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Trasformazione Matrice di Google per righe}
-	La matrice di Google attualmente utilizzata è ottenuta considerando la matrice di perturbazione  $\textbf{E} = \mathbb{1v}^\intercal$ dove $v^\intercal$ è un vettore di personalizzazione dell'utente $$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + (1-\alpha)\mathbb{1v}^\intercal ~~~~~~~~ \alpha \in [0,1]$$
+	La matrice di Google attualmente utilizzata è ottenuta considerando la matrice di perturbazione  $\textbf{E} = \mathbb{1v}^\intercal$ dove $v^\intercal$ è un vettore di personalizzazione dell'utente $$\bar{\bar{\textbf{P}}} = d\bar{\textbf{P}} + (1-d)\mathbb{1v}^\intercal ~~~~~~~~ d \in [0,1]$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Damping factor}
+d (damping factor) 
+Fattore il cui valore è stabilito da Google. Nella documentazione originale fornita dal Searcher il damping factor è pari a 0,85. Tale valore può subire aggiustamenti, a discrezione di Google. Il damping factor è considerato come un fattore correttivo attenuante poiché tiene conto della probabilità che l' utente cambi percorso invece di seguire i link presenti sulla pagina. In altri termini, attraverso il damping factor, Google può determinare il valore percentuale di PageRank che transita da una pagina all' altra e stabilire un valore minimo di Page Rank attribuito ad ognuna delle pagine presenti nei suoi archivi.
 \end{frame}
 
+\begin{frame}
+	\frametitle{The magic value $d$ = 0.85}
+	\begin{itemize}
+		\item ``the smart guys at Google use 0.85''
+		\item  it works pretty well
+		\item  iterative algorithms that approximate PageRank converge
+		quickly if $d$ = 0.85: larger values would require more
+		iterations; moreover \dots
+		\item \dots numeric instability arises when $d$ is too close to 1 \dots
+		
+	\end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementazione}
 \begin{frame}
@@ -461,9 +479,9 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \begin{frame}
 	\frametitle{Calcolo del vettore PageRank $\pi^\intercal$ relativo a $\bar{\bar{\textbf{P}}}$}
 	\begin{enumerate}
-		\item Specificare il parametro $\alpha$
+		\item Specificare il parametro $d$
 		\item Porre $\pi_0^\intercal=\frac{\mathbb{1}^\intercal}{n}$
-		\item Fissata la threshold, iterare fino alla convergenza l'equazione $$\pi_{k+1}^\intercal = \alpha \pi_{k+1}^\intercal \bar{\textbf{P}} + (1- \alpha) \mathbb{v}^\intercal  $$
+		\item Fissata la threshold, iterare fino alla convergenza l'equazione $$\pi_{k+1}^\intercal = d \pi_{k+1}^\intercal \bar{\textbf{P}} + (1- d) \mathbb{v}^\intercal  $$
 	\end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -554,8 +572,8 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 	\frametitle{\dots Esempio \dots}
-	Per ottenere una matrice irriducibile settiamo il parametro $\alpha=0.9$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = \alpha\bar{\textbf{P}} + \frac{(1-\alpha)\mathbb{11}^\intercal}{n}$}
-	$$\bar{\bar{\textbf{P}}} = 0.9*\bar{\textbf{P}} + \frac{0.1*\mathbb{11}^\intercal}{6}$$
+	Per ottenere una matrice irriducibile settiamo il parametro $d=0.85$ da applicare alla formula \footnote{$\bar{\bar{\textbf{P}}} = d\bar{\textbf{P}} + \frac{(1-d)\mathbb{11}^\intercal}{n}$}
+	$$\bar{\bar{\textbf{P}}} = 0.85*\bar{\textbf{P}} + \frac{0.15*\mathbb{11}^\intercal}{6}$$
 	\begin{center}
 		$\bar{\bar{\textbf{P}}} = \begin{bmatrix}
 		\frac{1}{60} & \frac{7}{15}  & \frac{7}{15} & \frac{1}{60} &\frac{1}{60} &\frac{1}{60} \\[0.3em]
