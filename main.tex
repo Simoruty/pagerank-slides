@@ -448,22 +448,26 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Damping factor}
-d (damping factor) 
-Fattore il cui valore è stabilito da Google. Nella documentazione originale fornita dal Searcher il damping factor è pari a 0,85. Tale valore può subire aggiustamenti, a discrezione di Google. Il damping factor è considerato come un fattore correttivo attenuante poiché tiene conto della probabilità che l' utente cambi percorso invece di seguire i link presenti sulla pagina. In altri termini, attraverso il damping factor, Google può determinare il valore percentuale di PageRank che transita da una pagina all' altra e stabilire un valore minimo di Page Rank attribuito ad ognuna delle pagine presenti nei suoi archivi.
+	\frametitle{Damping factor $d$}
+	\begin{itemize}
+		\item Fattore il cui valore è stabilito da Google.\\~\\
+		\item Nella documentazione originale fornita dal Searcher il damping factor è pari a 0,85 (può subire aggiustamenti a discrezione di Google).\\~\\
+		\item Attraverso il damping factor, Google può determinare il valore percentuale di PageRank che transita da una pagina all'altra e stabilire un valore minimo di PageRank attribuito ad ognuna delle pagine presenti nei suoi archivi.
+%		Viene considerato come un fattore correttivo attenuante poiché tiene conto della probabilità che l'utente cambi percorso invece di seguire i link presenti sulla pagina. 
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{The magic value $d$ = 0.85}
+	\frametitle{Magic value $d$ = 0.85}
 	\begin{itemize}
-		\item ``the smart guys at Google use 0.85''
-		\item  it works pretty well
-		\item  iterative algorithms that approximate PageRank converge
-		quickly if $d$ = 0.85: larger values would require more
-		iterations; moreover \dots
-		\item \dots numeric instability arises when $d$ is too close to 1 \dots
-		
-	\end{itemize}
+		\item ``\emph{the smart guys at Google use 0.85} '' \\~\\
+		\item Funziona euristicamente bene \\~\\
+%		\item it works pretty well
+		\item Gli algoritmi iterativi che approssimano il PageRank convergono velocemente per $d$ = 0.85
+		\begin{itemize}
+			\item valori più grandi richiederebbero più iterazioni
+		\end{itemize}
+\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementazione}
