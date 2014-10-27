@@ -458,6 +458,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 %		Viene considerato come un fattore correttivo attenuante poiché tiene conto della probabilità che l'utente cambi percorso invece di seguire i link presenti sulla pagina. 
 	\end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 	\frametitle{Magic value $d$ = 0.85}
@@ -470,6 +471,48 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 			\item valori più grandi richiederebbero più iterazioni
 		\end{itemize}
 \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Energy Balance \dots}
+	\begin{itemize}
+		\item Dato un grafo $G_I$, l'energia del grafo $E_I$ sarà data dalla somma di tutti i PageRank delle pagine contenute nel grafo $$E_I = \sum_{p \in I }{{x_i}^\intercal}$$
+		\item L'energia del grafo $G_I$ corrisponde al livello di authority del grafo stesso
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots Energy Balance \dots}
+	L'energia totale del grafo $G_I$ sarà data dalla somma delle quattro componenti $$E_I=|I|+{E_I}^{in}-{E_I}^{out}-{E_I}^{dp}$$
+	\begin{itemize}
+		\item $|I|$ denota la cardinalità di pagine contenute in $G_I$
+		\item ${E_I}^{in}$ indica l'energia entrante nel grafo
+		\item ${E_I}^{out}$ indica l'energia uscente dal grafo
+		\item ${E_I}^{dp}$ indica l'energia persa dai nodi dangling
+	\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{\dots Energy Balance}
+	Nel dettaglio, per calcolare le diverse energie le formule da applicare saranno
+	\begin{equation*}
+	\begin{array}{ll@{}ll}
+	E_I^{in}=\frac{d}{1-d}\sum_{i \in in(I)}{f_ix_i^\intercal} \\~\\
+	E_I^{out}=\frac{d}{1-d}\sum_{i \in out(I)}{(1-f_i)x_i^\intercal}\\~\\
+	E_I^{dp}=\frac{d}{1-d}\sum_{i \in dp(I)}{x_i^\intercal}
+	\end{array}
+	\end{equation*}
+	Dove $$f_i = \frac{link~di~i~puntanti~a~pagine~presenti~in~G_I}{|link~uscenti~da~i|}$$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Energy Balance - Proprietà}
+	Nel caso ottimale quindi, avremo che l'energia $E_I$ del grafo $G_I$ sarà
+	$$E_I \le \ |I| + E_I^{in}$$
+	\begin{itemize}
+		\item Piccoli grafi con pochi referenti non possono avere pagine con alti score
+		\item Robustezza della misura di authority
+	\end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Implementazione}
@@ -487,7 +530,7 @@ thick,main node/.style={circle,fill=yellow!80,draw,font=\sffamily\Large\bfseries
 	\begin{enumerate}
 		\item Specificare il parametro $d$
 		\item Porre $\pi_0^\intercal=\frac{\mathbb{1}^\intercal}{n}$
-		\item Fissata la threshold, iterare fino alla convergenza l'equazione $$\pi_{k+1}^\intercal = d \pi_{k+1}^\intercal \bar{\textbf{P}} + (1- d) \mathbb{v}^\intercal  $$
+		\item Fissata la threshold, iterare fino alla convergenza l'equazione $$\pi_{k+1}^\intercal = d \pi_{k}^\intercal \bar{\textbf{P}} + (1- d) \mathbb{v}^\intercal  $$
 	\end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
